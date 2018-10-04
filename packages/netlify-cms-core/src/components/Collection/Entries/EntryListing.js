@@ -34,13 +34,15 @@ export default class EntryListing extends React.Component {
 
   inferFields = collection => {
     const titleField = selectInferedField(collection, 'title');
+    const bodyField = selectInferedField(collection, 'body');
+    const dateField = selectInferedField(collection, 'date');
     const descriptionField = selectInferedField(collection, 'description');
     const imageField = selectInferedField(collection, 'image');
     const fields = selectFields(collection);
-    const inferedFields = [titleField, descriptionField, imageField];
+    const inferedFields = [titleField, descriptionField, imageField, bodyField, dateField];
     const remainingFields =
       fields && fields.filter(f => inferedFields.indexOf(f.get('name')) === -1);
-    return { titleField, descriptionField, imageField, remainingFields };
+    return { titleField, descriptionField, imageField, bodyField, remainingFields, dateField};
   };
 
   renderCardsForSingleCollection = () => {
@@ -57,6 +59,7 @@ export default class EntryListing extends React.Component {
       const collection = collections.find(coll => coll.get('name') === collectionName);
       const collectionLabel = collection.get('label');
       const inferedFields = this.inferFields(collection);
+
       const entryCardProps = { collection, entry, inferedFields, publicFolder, collectionLabel };
       return <EntryCard {...entryCardProps} key={idx} />;
     });

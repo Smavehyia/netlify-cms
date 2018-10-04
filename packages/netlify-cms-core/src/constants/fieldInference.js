@@ -11,6 +11,26 @@ export const INFERABLE_FIELDS = {
     fallbackToFirstField: true,
     showError: true,
   },
+  body: {
+    type: 'markdown',
+    secondaryTypes: ['text'],
+    synonyms: [
+    'body',
+    ],
+    defaultPreview: value => value,
+    fallbackToFirstField: true,
+    showError: false,
+  },
+  date: {
+    type: 'datetime',
+    secondaryTypes: ['text'],
+    synonyms: [
+    'date',
+    ],
+    defaultPreview: value => value,
+    fallbackToFirstField: true,
+    showError: false,
+  },
   shortTitle: {
     type: 'string',
     secondaryTypes: [],

@@ -120,16 +120,24 @@ export const selectIdentifier = collection => {
 export const selectInferedField = (collection, fieldName) => {
   const inferableField = INFERABLE_FIELDS[fieldName];
   const fields = collection.get('fields');
+
   let field;
 
   // If colllection has no fields or fieldName is not defined within inferables list, return null
-  if (!fields || !inferableField) return null;
+  if (!fields || !inferableField) {
+    console.log("Empty!");
+    return null};
+    console.log("Not empty!");
   // Try to return a field of the specified type with one of the synonyms
   const mainTypeFields = fields
     .filter(f => f.get('widget', 'string') === inferableField.type)
     .map(f => f.get('name'));
   field = mainTypeFields.filter(f => inferableField.synonyms.indexOf(f) !== -1);
-  if (field && field.size > 0) return field.first();
+  if (field && field.size > 0) {
+    console.log("Field first!" + field.first());
+    return field.first();
+  }
+
 
   // Try to return a field for each of the specified secondary types
   const secondaryTypeFields = fields
@@ -143,6 +151,7 @@ export const selectInferedField = (collection, fieldName) => {
 
   // Coundn't infer the field. Show error and return null.
   if (inferableField.showError) {
+    console.log("Error with infereable field");
     consoleError(
       `The Field ${fieldName} is missing for the collection “${collection.get('name')}”`,
       `Netlify CMS tries to infer the entry ${fieldName} automatically, but one couldn't be found for entries of the collection “${collection.get(
